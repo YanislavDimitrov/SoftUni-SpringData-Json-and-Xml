@@ -42,11 +42,7 @@ public class ApplicationBeanConfiguration {
         Converter<Set<Product>, Integer> productsToCountConverter = new Converter<Set<Product>, Integer>() {
             @Override
             public Integer convert(MappingContext<Set<Product>, Integer> mappingContext) {
-                //TODO try to remove if statement
-                if (mappingContext.getSource() != null) {
-                    return mappingContext.getSource().size();
-                }
-                return 0;
+                return mappingContext.getSource().size();
             }
         };
         Converter<Set<Product>, BigDecimal> avgPriceConverter = new Converter<Set<Product>, BigDecimal>() {
@@ -65,8 +61,8 @@ public class ApplicationBeanConfiguration {
         TypeMap<Category, CategorySummaryDto> categorySummaryDtoTypeMap = modelMapper.typeMap(Category.class, CategorySummaryDto.class);
 
         categorySummaryDtoTypeMap.addMappings(m -> m.using(productsToCountConverter).map(Category::getProducts, CategorySummaryDto::setProductsCount));
-        categorySummaryDtoTypeMap.addMappings(m -> m.using(avgPriceConverter).map(Category::getProducts, CategorySummaryDto::setAvgPrice));
-        categorySummaryDtoTypeMap.addMappings(m -> m.using(totalPriceConverter).map(Category::getProducts, CategorySummaryDto::setTotalPrice));
+        categorySummaryDtoTypeMap.addMappings(m -> m.using(avgPriceConverter).map(Category::getProducts, CategorySummaryDto::setAveragePrice));
+        categorySummaryDtoTypeMap.addMappings(m -> m.using(totalPriceConverter).map(Category::getProducts, CategorySummaryDto::setTotalRevenue));
         return modelMapper;
     }
 

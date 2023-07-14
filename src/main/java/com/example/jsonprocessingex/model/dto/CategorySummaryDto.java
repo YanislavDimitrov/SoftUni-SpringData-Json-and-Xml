@@ -1,6 +1,7 @@
 package com.example.jsonprocessingex.model.dto;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import javax.xml.bind.annotation.*;
 import java.math.BigDecimal;
@@ -8,17 +9,18 @@ import java.math.BigDecimal;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CategorySummaryDto {
     @Expose
-    @XmlAttribute(name = "name")
+    @SerializedName("category")
+    @XmlAttribute
     private String name;
     @Expose
-    @XmlElement(name = "product_count")
+    @XmlElement(name = "product-count")
     private int productsCount;
     @Expose
-    @XmlElement(name = "avg_price")
-    private BigDecimal avgPrice;
+    @XmlElement(name = "average-price")
+    private BigDecimal averagePrice;
     @Expose
-    @XmlElement(name = "total_price")
-    private BigDecimal totalPrice;
+    @XmlElement(name = "total-revenue")
+    private BigDecimal totalRevenue;
 
     public CategorySummaryDto() {
     }
@@ -39,19 +41,19 @@ public class CategorySummaryDto {
         this.productsCount = productsCount;
     }
 
-    public BigDecimal getAvgPrice() {
-        return avgPrice;
+    public BigDecimal getAveragePrice() {
+        return averagePrice;
     }
 
-    public void setAvgPrice(BigDecimal avgPrice) {
-        this.avgPrice = avgPrice;
+    public void setAveragePrice(BigDecimal averagePrice) {
+        this.averagePrice = averagePrice;
     }
 
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
+    public BigDecimal getTotalRevenue() {
+        return totalRevenue;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setTotalRevenue(BigDecimal totalRevenue) {
+        this.totalRevenue = totalRevenue;
     }
 }

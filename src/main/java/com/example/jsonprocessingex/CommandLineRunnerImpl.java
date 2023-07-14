@@ -18,6 +18,7 @@ import java.util.Scanner;
 public class CommandLineRunnerImpl implements CommandLineRunner {
     public static final String PRODUCTS_IN_RANGE_FILE_NAME = "products-in-range";
     public static final String USERS_WITH_SOLD_PRODUCT_FILE_NAME = "users-with-sold-product";
+    public static final String CATEGORIES_BY_PRODUCT_COUNT_FILE_NAME = "categories-by-product-count";
     public static final String RESOURCES_OUTPUT_PATH = "output/";
     public static final String RESOURCES_FILES_PATH = "src/main/resources/files/";
     private final CategoryService categoryService;
@@ -93,17 +94,21 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
             case 3:
                 List<CategorySummaryDto> categoriesSummary = this.categoryService.getCategoriesSummary();
                 CategorySummaries categorySummaries = new CategorySummaries(categoriesSummary);
-                System.out.println(converter.serialize(categorySummaries));
+
+                if (outputType.equalsIgnoreCase("console")) {
+                    System.out.println(converter.serialize(categorySummaries));
+                } else if (outputType.equalsIgnoreCase("file")) {
+                    converter.serialize(categorySummaries,
+                            RESOURCES_FILES_PATH +
+                                    RESOURCES_OUTPUT_PATH +
+                                    CATEGORIES_BY_PRODUCT_COUNT_FILE_NAME +
+                                    "." + formatInput);
+                    System.out.println("Output file created in " + RESOURCES_FILES_PATH + RESOURCES_OUTPUT_PATH);
+                } else {
+                    System.out.println("Invalid Output type.");
+                }
                 break;
         }
-
-//        converter.serialize(productsCollection, RESOURCE_FILE_PATH + PRODUCTS_IN_RANGE_FILE_NAME + formatInput.toLowerCase());
-
-
-//        String jsonString = gson
-//                .toJson(this.productService.getProductsInRange(), ProductInRangeDto[].class);
-
-//        Files.writeString(Path.of(RESOURCE_FILE_PATH + PRODUCTS_IN_RANGE_FILE), jsonString);
     }
 
 

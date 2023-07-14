@@ -1,6 +1,7 @@
 package com.example.jsonprocessingex.model.dto;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public class CategorySummaries {
     @XmlElement(name = "category")
     @Expose
+    @SerializedName("categories")
     private List<CategorySummaryDto> categoriesSummary;
 
     public CategorySummaries(List<CategorySummaryDto> categoriesSummary) {
