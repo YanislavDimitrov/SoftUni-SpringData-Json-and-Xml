@@ -1,6 +1,5 @@
 package com.example.jsonprocessingex.repository;
 
-import com.example.jsonprocessingex.model.entity.Category;
 import com.example.jsonprocessingex.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,6 +1,5 @@
 package com.example.jsonprocessingex.service;
 
-import com.example.jsonprocessingex.model.dto.CategorySummaryDto;
 import com.example.jsonprocessingex.model.dto.UserSoldProductsDto;
 import com.example.jsonprocessingex.model.entity.User;
 

@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.example.jsonprocessingex.constants.GlobalConstant.RESOURCE_FILE_PATH;
-
 @Component
 public class CommandLineRunnerImpl implements CommandLineRunner {
     public static final String PRODUCTS_IN_RANGE_FILE_NAME = "products-in-range";

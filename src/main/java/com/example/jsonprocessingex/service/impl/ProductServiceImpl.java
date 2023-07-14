@@ -2,7 +2,6 @@ package com.example.jsonprocessingex.service.impl;
 
 import com.example.jsonprocessingex.model.dto.ProductInRangeDto;
 import com.example.jsonprocessingex.model.dto.ProductSeedDto;
-import com.example.jsonprocessingex.model.entity.Category;
 import com.example.jsonprocessingex.model.entity.Product;
 import com.example.jsonprocessingex.repository.ProductRepository;
 import com.example.jsonprocessingex.service.CategoryService;
@@ -19,8 +18,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.example.jsonprocessingex.constants.GlobalConstant.RESOURCE_FILE_PATH;
 

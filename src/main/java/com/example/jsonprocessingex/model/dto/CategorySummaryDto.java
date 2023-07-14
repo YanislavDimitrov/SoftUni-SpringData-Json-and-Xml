@@ -1,7 +1,6 @@
 package com.example.jsonprocessingex.model.dto;
 
 import com.google.gson.annotations.Expose;
-import jakarta.persistence.Entity;
 
 import javax.xml.bind.annotation.*;
 import java.math.BigDecimal;
