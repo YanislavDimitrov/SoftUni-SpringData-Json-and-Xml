@@ -1,6 +1,7 @@
 package com.example.jsonprocessingex.service.impl;
 
 import com.example.jsonprocessingex.model.dto.CategorySeedDto;
+import com.example.jsonprocessingex.model.dto.CategorySummaryDto;
 import com.example.jsonprocessingex.model.entity.Category;
 import com.example.jsonprocessingex.repository.CategoryRepository;
 import com.example.jsonprocessingex.service.CategoryService;
@@ -13,10 +14,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.example.jsonprocessingex.constants.GlobalConstant.RESOURCE_FILE_PATH;
 
@@ -63,5 +62,13 @@ public class CategoryServiceImpl implements CategoryService {
             categories.add(categoryRepository.findById(randomId).orElse(null));
         }
         return categories;
+    }
+
+    @Override
+    public List<CategorySummaryDto> getCategoriesSummary() {
+        List<Category> categories = this.categoryRepository.findAll();
+        return categories.stream()
+                .map(c -> modelMapper.map(c, CategorySummaryDto.class))
+                .collect(Collectors.toList());
     }
 }

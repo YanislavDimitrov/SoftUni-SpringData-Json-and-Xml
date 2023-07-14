@@ -18,7 +18,6 @@ public class Product extends BaseEntity {
     @ManyToOne(optional = false)
     private User seller;
     @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "product_id"))
     private Set<Category> categories;
 
     public Product() {

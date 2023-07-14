@@ -11,6 +11,7 @@ import com.example.jsonprocessingex.service.UserService;
 import com.example.jsonprocessingex.util.ValidationUtil;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,8 +66,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductInRangeDto[] getProductsInRange() {
+    public List<ProductInRangeDto> getProductsInRange() {
         return modelMapper.map(this.productRepository
-                .findAllByPriceBetweenAndBuyerNull(BigDecimal.valueOf(500L), BigDecimal.valueOf(1000L)), ProductInRangeDto[].class);
+                .findAllByPriceBetweenAndBuyerNull(BigDecimal.valueOf(500L), BigDecimal.valueOf(1000L)),
+                new TypeToken<List<ProductInRangeDto>>(){}.getType());
     }
 }

@@ -22,6 +22,9 @@ public class User extends BaseEntity {
             , inverseJoinColumns = @JoinColumn(name = "friend_id"))
     private Set<User> friends;
 
+    @OneToMany(mappedBy = "seller",fetch = FetchType.EAGER)
+    private Set<Product> soldProducts;
+
     public User() {
     }
 
@@ -55,5 +58,13 @@ public class User extends BaseEntity {
 
     public void setFriends(Set<User> friends) {
         this.friends = friends;
+    }
+
+    public Set<Product> getSoldProducts() {
+        return soldProducts;
+    }
+
+    public void setSoldProducts(Set<Product> soldProducts) {
+        this.soldProducts = soldProducts;
     }
 }

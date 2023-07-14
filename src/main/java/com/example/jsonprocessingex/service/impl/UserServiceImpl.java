@@ -1,6 +1,9 @@
 package com.example.jsonprocessingex.service.impl;
 
+import com.example.jsonprocessingex.model.dto.CategorySummaryDto;
+import com.example.jsonprocessingex.model.dto.ProductBuyerDto;
 import com.example.jsonprocessingex.model.dto.UserSeedDto;
+import com.example.jsonprocessingex.model.dto.UserSoldProductsDto;
 import com.example.jsonprocessingex.model.entity.User;
 import com.example.jsonprocessingex.repository.UserRepository;
 import com.example.jsonprocessingex.service.UserService;
@@ -14,7 +17,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.example.jsonprocessingex.constants.GlobalConstant.RESOURCE_FILE_PATH;
 
@@ -52,5 +58,18 @@ public class UserServiceImpl implements UserService {
     public User getRandomUser() {
         long randomUserId = new Random().nextLong(1, userRepository.count() + 1);
         return userRepository.findById(randomUserId).orElse(null);
+    }
+
+    @Override
+    public List<UserSoldProductsDto> getAllUsersWithSoldProduct() {
+        List<User> allUsersWithSoldProduct = this.userRepository.getAllUsersWithSoldProduct();
+        return allUsersWithSoldProduct
+                .stream().map(u -> modelMapper.map(u, UserSoldProductsDto.class))
+                .map(u -> {
+                    Set<ProductBuyerDto> soldProducts = u.getSoldProducts();
+                    soldProducts.removeIf(p -> p.getBuyerLastName() == null);
+                    return u;
+                })
+                .collect(Collectors.toList());
     }
 }

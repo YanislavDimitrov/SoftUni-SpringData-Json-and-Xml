@@ -1,24 +1,23 @@
 package com.example.jsonprocessingex.model.dto;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.math.BigDecimal;
 
 @XmlRootElement(name = "product")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ProductInRangeDto {
     @Expose
-    @XmlElement(name = "name")
+    @XmlAttribute(name = "name")
     private String name;
     @Expose
-    @XmlElement(name = "price")
+    @XmlAttribute(name = "price")
     private BigDecimal price;
     @Expose
-    @XmlElement(name = "seller_full_name")
+    @SerializedName("seller")
+    @XmlAttribute(name = "seller")
     private String sellerFullName;
 
     public ProductInRangeDto() {
