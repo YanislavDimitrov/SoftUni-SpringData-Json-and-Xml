@@ -3,6 +3,11 @@ package com.example.jsonprocessingex.service.impl;
 import com.example.jsonprocessingex.model.dto.ProductBuyerDto;
 import com.example.jsonprocessingex.model.dto.UserSeedDto;
 import com.example.jsonprocessingex.model.dto.UserSoldProductsDto;
+import com.example.jsonprocessingex.model.dto.problem4.ProductDto;
+import com.example.jsonprocessingex.model.dto.problem4.ProductsCountDto;
+import com.example.jsonprocessingex.model.dto.problem4.UserDto;
+import com.example.jsonprocessingex.model.dto.problem4.UsersCountDto;
+import com.example.jsonprocessingex.model.entity.Product;
 import com.example.jsonprocessingex.model.entity.User;
 import com.example.jsonprocessingex.repository.UserRepository;
 import com.example.jsonprocessingex.service.UserService;
@@ -15,10 +20,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.example.jsonprocessingex.constants.GlobalConstant.RESOURCE_FILE_PATH;
@@ -70,5 +72,38 @@ public class UserServiceImpl implements UserService {
                     return u;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UsersCountDto getAllUsersWithSoldProductOrderBySoldProducts() {
+        List<User> users = this.userRepository.getAllUsersWithSoldProductOrderBySoldProducts();
+
+        UsersCountDto dto = new UsersCountDto();
+        dto.setCount(users.size());
+        dto.setUsers(getUserDtos(users));
+
+        return dto;
+    }
+
+    private List<UserDto> getUserDtos(List<User> users) {
+        List<UserDto> result = new ArrayList<>();
+
+        for (User user : users) {
+            UserDto dto = modelMapper.map(user, UserDto.class);
+            ProductsCountDto productsCountDto = new ProductsCountDto();
+            productsCountDto.setCount(user.getSoldProducts().size());
+            productsCountDto.setProducts(getProductDtos(user.getSoldProducts()));
+            dto.setSoldProducts(productsCountDto);
+            result.add(dto);
+        }
+        return result;
+    }
+
+    private Set<ProductDto> getProductDtos(Set<Product> soldProducts) {
+        Set<ProductDto> result = new HashSet<>();
+        for (Product soldProduct : soldProducts) {
+            result.add(modelMapper.map(soldProduct, ProductDto.class));
+        }
+        return result;
     }
 }
